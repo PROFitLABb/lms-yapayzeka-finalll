@@ -8,7 +8,9 @@ except ImportError:
     Groq = None
 
 # .env dosyasını oku (Dosya ana dizinde olduğu için basit yol kullanıyoruz)
-load_dotenv()
+from pathlib import Path
+env_path = Path(__file__).parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Manuel API key ayarı (geçici çözüm)
 if not os.getenv("GEMINI_API_KEY"):
@@ -76,7 +78,7 @@ def _analyze_with_groq(text):
         full_prompt = f"{SYSTEM_PROMPT}\\n\\nAnaliz edilecek öğrenci metni: {text}"
 
         completion = client.chat.completions.create(
-            model="llama3-8b-8192",
+            model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": full_prompt}],
         )
         return {
