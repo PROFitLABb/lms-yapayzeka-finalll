@@ -12,7 +12,9 @@ from datetime import datetime
 
 
 # .env dosyasını yüklemeyi dene (Lokaldeysen çalışır)
-load_dotenv()
+from pathlib import Path
+env_path = Path(__file__).parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 # Manuel API key ayarı (geçici çözüm)
 if not os.getenv("GEMINI_API_KEY"):
